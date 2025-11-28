@@ -4,12 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "pb:download": "bash ./scripts/pb-download.sh",
+    "pb:serve": "./pb/pocketbase serve --http=127.0.0.1:8090",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "pocketbase": "^0.26.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
