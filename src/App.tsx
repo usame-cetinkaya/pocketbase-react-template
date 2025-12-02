@@ -1,35 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import AppLayout from "@/components/app-layout.tsx";
+import { route, navItems } from "@/lib/nav.ts";
+import { pb } from "@/lib/pocketbase";
+import Login from "@/pages/login.tsx";
+import NotFound from "@/pages/not-found.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  if (!pb.authStore.isValid) {
+    return <Login />;
+  }
+
+  const pathname = route();
+
+  const Component =
+    navItems.find((item) => item.pathname === pathname)?.component || NotFound;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AppLayout>
+      <Component />
+    </AppLayout>
+  );
 }
 
-export default App
+export default App;

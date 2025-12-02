@@ -25,3 +25,4 @@ dist-ssr
 
 pb/pb_data/
 pb/pocketbase
+.env
